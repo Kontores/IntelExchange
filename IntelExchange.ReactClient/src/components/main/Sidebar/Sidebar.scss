@@ -1,0 +1,23 @@
+@import '../../../Adaptive.scss';
+@import '../../../Global.scss';
+
+.sidebar-component {
+    width: 180px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: $blue-gray;
+    border-left: 1px solid #706ea2;
+    color: $text-light;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition-property: right;
+    transition-duration: 1s;
+
+    &.hidden {
+        right: -180px;
+    }
+}

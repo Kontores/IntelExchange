@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 /*import { ConnectedRouter as Router  } from 'connected-react-router';*/
 /*import { history } from '../../../store/configureStore';*/
 import Header from '../Header/Header';
+import Sidebar from '../Sidebar/Sidebar';
 import Footer from '../Footer/Footer';
 import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -23,7 +24,8 @@ const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
                         <Route path="/account/login" element={<LoginPage />} />
                     </Routes>
                 </Router>
-            </div>           
+            </div>
+            <Sidebar />
             <Footer />
         </div>
         );
