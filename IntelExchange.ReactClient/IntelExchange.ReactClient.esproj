@@ -8,6 +8,7 @@
     <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="public\locales\en\" />
     <Folder Include="src\components\shared\" />
     <Folder Include="src\data\" />
   </ItemGroup>
