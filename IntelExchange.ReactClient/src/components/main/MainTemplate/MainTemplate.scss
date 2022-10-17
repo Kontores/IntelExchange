@@ -1,0 +1,12 @@
+@import '../../../Adaptive.scss';
+
+.main-template-component {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    
+    .content {
+        background-color: blue;
+    }
+}

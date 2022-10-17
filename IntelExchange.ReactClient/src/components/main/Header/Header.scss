@@ -1,0 +1,11 @@
+@import '../../../Adaptive.scss';
+@import '../../../Global.scss';
+
+.header-component {
+    width: 100%;
+    height: 32px;
+    border-bottom: 1px solid $border;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
