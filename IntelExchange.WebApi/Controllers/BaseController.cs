@@ -11,5 +11,10 @@ namespace IntelExchange.WebApi.Controllers
         {
             _logger = logger;
         }
+
+        protected void Log(string message)
+        {
+            _logger.LogInformation(message);
+        }
     }
 }

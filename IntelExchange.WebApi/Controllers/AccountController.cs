@@ -28,6 +28,7 @@ namespace IntelExchange.WebApi.Controllers
             if (user != null)
             {
                 await AuthenticateAsync(userLoginData.Login);
+                Log("User " + userLoginData.Login + " logged into the system");
                 return Ok();
 
             }
