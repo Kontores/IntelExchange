@@ -1,0 +1,22 @@
+@import '../../../Adaptive.scss';
+@import '../../../Global.scss';
+
+.button-component {
+    border: none;
+    height: 42px;
+    min-width: 96px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.normal {
+        background-color: $blue-gray;
+        color: $text-light;
+    }
+}
