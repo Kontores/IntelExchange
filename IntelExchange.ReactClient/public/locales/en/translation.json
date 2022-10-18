@@ -4,6 +4,12 @@
       "title": "Header Title",
       "sign_up": "Sign up",
       "log_in": "Log in"
+    },
+    "login_page": {
+      "title": "Please log in using the form below",
+      "username": "Username",
+      "password": "Password",
+      "log_in": "Log in"
     }
   },
   "shared": {

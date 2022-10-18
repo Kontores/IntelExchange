@@ -5,6 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Button from '../../shared/Button/Button';
+import Input from '../../shared/Input/Input';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../data/enums/routes';
 import './LoginPage.scss';
@@ -32,14 +33,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
     return (
         <div className="loginpage-component">
             <div className="login-form">
-                <h2>Please login</h2>
+                <h2>{t("main.login_page.title")}</h2>
                 <div>
-                    <label>Login</label>
-                    <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Input type="text" value={login} onChange={(e) => setLogin(e.target.value)} label={t("main.login_page.username")} /> 
+                    <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} label={t("main.login_page.password")} />                     
                     <div className="button-container">
-                        <Button onClick={handleLogin} title="Log in" type="normal" />       
+                        <Button onClick={handleLogin} title={t("main.login_page.log_in")} type="normal" />       
                     </div>                            
                 </div>
             </div>           
