@@ -5,6 +5,7 @@ import { ApplicationState } from '../../../store/ApplicationState';
 import * as SidebarStore from '../../../store/SidebarState';
 import SidebarItem from './SidebarItem/SidebarItem';
 import { RoutesEnum } from '../../../data/enums/routes';
+import { useLocation } from 'react-router-dom';
 import './Sidebar.scss';
 
 type StateProps = { isHidden: boolean };
@@ -17,8 +18,7 @@ type SidebarProps = StateProps & DispatchProps & {
 
 const Sidebar: React.FC<SidebarProps> = ({ isHidden, hideSidebar, items }) => {
     const [sidebarClass, setSidebarClass] = useState("sidebar-component");
-    const [activeItemIndex, setActiveItemIndex] = useState(0);
-
+    const location = useLocation();
     useEffect(() => {
         setSidebarClass(isHidden ? "sidebar-component hidden" : "sidebar-component");
     }, [isHidden]);
@@ -29,8 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isHidden, hideSidebar, items }) => {
             {
                 items.map((item, i) => (
                     <SidebarItem
-                        active={activeItemIndex === i}
-                        onClick={() => setActiveItemIndex(i)}
+                        active={item.navigateTo === location.pathname}
                         key={i}
                         navigateTo={item.navigateTo}
                         title={item.title}
