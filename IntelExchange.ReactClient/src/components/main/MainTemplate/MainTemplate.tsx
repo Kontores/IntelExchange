@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 /*import { ConnectedRouter as Router  } from 'connected-react-router';*/
 /*import { history } from '../../../store/configureStore';*/
+import { RoutesEnum } from '../../../data/enums/routes';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import Footer from '../Footer/Footer';
@@ -20,9 +21,9 @@ const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
                     <Header />
                     <Sidebar />
                     <Routes>
-                        <Route path="/"  element={<HomePage />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/account/login" element={<LoginPage />} />
+                        <Route path={RoutesEnum.home}  element={<HomePage />} />
+                        <Route path={RoutesEnum.dashboard} element={<Dashboard />} />
+                        <Route path={RoutesEnum.login} element={<LoginPage />} />
                     </Routes>
                 </Router>
             </div>
