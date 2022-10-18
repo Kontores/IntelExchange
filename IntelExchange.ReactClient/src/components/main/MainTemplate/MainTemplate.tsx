@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 /*import { ConnectedRouter as Router  } from 'connected-react-router';*/
 /*import { history } from '../../../store/configureStore';*/
 import { RoutesEnum } from '../../../data/enums/routes';
+import { useTranslation } from 'react-i18next';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import Footer from '../Footer/Footer';
@@ -14,9 +15,15 @@ import './MainTemplate.scss';
 type MainTemplateProps = {};
 
 const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
-
+    const { t } = useTranslation();
     // todo: define items in separate helper.ts class based on user permissions; create protected route component 
-    const sidebarItems = [{ title: "Home", navigateTo: RoutesEnum.home }, { title: "Dashboard", navigateTo: RoutesEnum.dashboard }];
+    const sidebarItems = [
+        { title: t("shared.pages.home"), navigateTo: RoutesEnum.home },
+        { title: t("shared.pages.dashboard"), navigateTo: RoutesEnum.dashboard },
+        { title: t("shared.pages.chart"), navigateTo: RoutesEnum.chart },
+        { title: t("shared.pages.strategies"), navigateTo: RoutesEnum.strategies },
+        { title: t("shared.pages.settings"), navigateTo: RoutesEnum.settings },
+    ];
 
     return (
         <div className="main-template-component">

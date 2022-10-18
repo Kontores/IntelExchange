@@ -7,6 +7,12 @@
     }
   },
   "shared": {
-
+    "pages": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "chart": "Chart",
+      "strategies": "Strategies",
+      "settings": "Settings"
+    }
   }
 }

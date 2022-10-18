@@ -15,7 +15,7 @@ type SidebarProps = StateProps & DispatchProps & {
     items: { navigateTo: RoutesEnum, title: string }[]
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ isHidden, hideSidebar, items}) => {
+const Sidebar: React.FC<SidebarProps> = ({ isHidden, hideSidebar, items }) => {
     const [sidebarClass, setSidebarClass] = useState("sidebar-component");
     const [activeItemIndex, setActiveItemIndex] = useState(0);
 
