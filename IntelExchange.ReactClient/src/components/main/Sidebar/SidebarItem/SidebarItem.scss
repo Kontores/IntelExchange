@@ -3,7 +3,7 @@
 
 .sidebar-item-component {
     width: 100%;
-    height: 32px;
+    height: 42px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -11,6 +11,8 @@
     color: $white;
     border-top: 1px solid $border;
     border-bottom: 1px solid $border;
+    transition-property: color, background-color;
+    transition-duration: 1500ms;
 
     &:first-of-type {
         border-bottom: none;
@@ -18,5 +20,12 @@
 
     .title {
         margin-left: 12px;
+    }
+
+    &.active {
+        background-color: $text-light;
+        color: $blue-gray;
+        transition-property: color, background-color;
+        transition-duration: 300ms;
     }
 }

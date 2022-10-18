@@ -17,6 +17,7 @@ type SidebarProps = StateProps & DispatchProps & {
 
 const Sidebar: React.FC<SidebarProps> = ({ isHidden, hideSidebar, items}) => {
     const [sidebarClass, setSidebarClass] = useState("sidebar-component");
+    const [activeItemIndex, setActiveItemIndex] = useState(0);
 
     useEffect(() => {
         setSidebarClass(isHidden ? "sidebar-component hidden" : "sidebar-component");
@@ -27,8 +28,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isHidden, hideSidebar, items}) => {
             <div className="hide-sidebar-button" onClick={hideSidebar}>{">>"}</div>
             {
                 items.map((item, i) => (
-                    <SidebarItem key={i} navigateTo={item.navigateTo} title={item.title} />
-                    ))
+                    <SidebarItem
+                        active={activeItemIndex === i}
+                        onClick={() => setActiveItemIndex(i)}
+                        key={i}
+                        navigateTo={item.navigateTo}
+                        title={item.title}
+                    />
+                ))
             }
         </div>
         );
