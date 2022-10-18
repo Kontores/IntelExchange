@@ -9,12 +9,12 @@
     align-items: center;
     text-decoration: none;
     color: $white;
-    border-top: 1px solid $border;
     border-bottom: 1px solid $border;
     transition-property: color, background-color;
     transition-duration: 1500ms;
 
     &:first-of-type {
+        border-top: 1px solid $border;
         border-bottom: none;
     }
 
