@@ -20,4 +20,24 @@
     &.hidden {
         right: -180px;
     }
+
+    .hide-sidebar-button {
+        width: 100%;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition-property: color;
+        transition-duration: 1500ms;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:active {
+            color: $blue;
+            transition-property: color;
+            transition-duration: 300ms;
+        }
+    }
 }

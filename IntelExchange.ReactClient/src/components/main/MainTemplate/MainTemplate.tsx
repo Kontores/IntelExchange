@@ -14,12 +14,16 @@ import './MainTemplate.scss';
 type MainTemplateProps = {};
 
 const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
+
+    // todo: define items in separate helper.ts class based on user permissions; create protected route component 
+    const sidebarItems = [{ title: "Home", navigateTo: RoutesEnum.home }, { title: "Dashboard", navigateTo: RoutesEnum.dashboard }];
+
     return (
         <div className="main-template-component">
             <div className="top-part">
                 <Router>
                     <Header />
-                    <Sidebar />
+                    <Sidebar items={sidebarItems} />
                     <Routes>
                         <Route path={RoutesEnum.home}  element={<HomePage />} />
                         <Route path={RoutesEnum.dashboard} element={<Dashboard />} />
