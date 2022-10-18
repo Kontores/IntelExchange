@@ -1,0 +1,22 @@
+@import '../../../Adaptive.scss';
+@import '../../../Global.scss';
+
+.input-component {
+    height: 64px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 4px;
+
+    input {
+        min-width: 228px;
+        height: 24px;
+        border: none;
+        outline: 0;
+        outline: none;
+        font-size: 14px;
+        padding-left: 8px;
+    }
+}
