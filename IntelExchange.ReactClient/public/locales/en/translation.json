@@ -1,7 +1,9 @@
 {
   "main": {
     "header": {
-      "title": "Header Title"
+      "title": "Header Title",
+      "sign_up": "Sign up",
+      "log_in": "Log in"
     }
   },
   "shared": {

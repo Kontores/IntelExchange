@@ -18,6 +18,7 @@ const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
             <div className="top-part">
                 <Router>
                     <Header />
+                    <Sidebar />
                     <Routes>
                         <Route path="/"  element={<HomePage />} />
                         <Route path="/dashboard" element={<Dashboard />} />
@@ -25,7 +26,6 @@ const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
                     </Routes>
                 </Router>
             </div>
-            <Sidebar />
             <Footer />
         </div>
         );

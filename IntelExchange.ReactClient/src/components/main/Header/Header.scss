@@ -10,4 +10,36 @@
     align-items: center;
     background-color: $blue-gray;
     color: $white;
+
+    .header-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        border-left: 1px solid $border;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:first-of-type {
+            border-left: none;
+        }
+    }
+
+    .show-sidebar-icon {
+        width: 48px;
+        position: absolute;
+        right: 0;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 }

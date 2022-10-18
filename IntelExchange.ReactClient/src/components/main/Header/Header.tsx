@@ -19,15 +19,14 @@ const Header: React.FC<HeaderProps> = ({ user, showSidebar }) => {
     const { t } = useTranslation();
     return (
         <div className="header-component">
-            <div className="test-class mobile-only">mobile</div>
-            <div className="test-class tablet-only">tablet</div>
-            <div className="test-class desktop-only">desktop</div>
-            <Link to="/dashboard">Dashboard</Link>
-            <Link to="/account/login">Login</Link>
-            <Link to="/">Home</Link>
             <h2>{t("main.header.title")}</h2>
-            <div>welcome {user?.login}</div>
-            <div onClick={showSidebar}>Show Sidebar</div>
+            {user.login ?
+                (<div className="username-placeholder">{user?.login}</div>)
+                : (<>
+                    <div className="header-item"><Link to="/account/login">{t("main.header.log_in")}</Link></div>
+                    <div className="header-item"><Link to="/account/signup">{t("main.header.sign_up")}</Link></div>
+                </>)}            
+            <div className="show-sidebar-icon" onClick={showSidebar}>{"<<"}</div>
         </div>
         );
 }
