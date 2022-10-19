@@ -36,6 +36,12 @@ namespace IntelExchange.WebApi.Controllers
             return new BadRequestResult();
         }
 
+        [Route("logout")]
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync();
+        }
+
         [Route("getuserlogin")]
         [Authorize]
         public IActionResult GetUserLogin()

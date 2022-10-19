@@ -25,6 +25,7 @@ builder.Services
     .AddCookie(options =>
 {
     options.LoginPath = new PathString("/account/login");
+    options.LogoutPath = new PathString("/account/logout");
     options.Cookie.HttpOnly = false;
     options.Cookie.SameSite = SameSiteMode.None;
 });
