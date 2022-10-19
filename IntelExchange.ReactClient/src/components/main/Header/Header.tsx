@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../../store/ApplicationState';
 import { UserState } from '../../../store/UserState';
 import * as SidebarStore from '../../../store/SidebarState';
+import { RoutesEnum } from '../../../data/enums/routes';
 import './Header.scss';
 
 
@@ -20,11 +21,11 @@ const Header: React.FC<HeaderProps> = ({ user, showSidebar }) => {
     return (
         <div className="header-component">
             <h2>{t("main.header.title")}</h2>
-            {user.login ?
+            {user ?
                 (<div className="username-placeholder">{user.login}</div>)
                 : (<>
-                    <div className="header-item"><Link to="/account/login">{t("main.header.log_in")}</Link></div>
-                    <div className="header-item"><Link to="/account/signup">{t("main.header.sign_up")}</Link></div>
+                    <div className="header-item"><Link to={RoutesEnum.login}>{t("main.header.log_in")}</Link></div>
+                    <div className="header-item"><Link to={RoutesEnum.signup}>{t("main.header.sign_up")}</Link></div>
                 </>)}            
             <div className="show-sidebar-icon" onClick={showSidebar}>{"<<"}</div>
         </div>
