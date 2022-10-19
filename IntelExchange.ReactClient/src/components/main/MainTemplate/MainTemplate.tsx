@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { unstable_HistoryRouter as Router, Routes, Route } from 'react-router-dom';
 /*import { ConnectedRouter as Router  } from 'connected-react-router';*/
-/*import { history } from '../../../store/configureStore';*/
+import { history } from '../../../store/configureStore';
 import { RoutesEnum } from '../../../data/enums/routes';
 import { useTranslation } from 'react-i18next';
 import Header from '../Header/Header';
@@ -28,7 +28,7 @@ const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
     return (
         <div className="main-template-component">
             <div className="top-part">
-                <Router>
+                <Router history={history}>
                     <Header />
                     <Sidebar items={sidebarItems} />
                     <Routes>
