@@ -4,10 +4,10 @@ import { UserRole } from '../data/enums/user-role';
 // state
 
 export type UserState = {
-    id?: string,
-    login?: string,
-    roles?: UserRole[],
-};
+    id: string,
+    login: string,
+    roles: UserRole[],
+} | null;
 
 // actions
 
@@ -34,20 +34,16 @@ export const actionCreators = {
 
 // reducer
 
-export const defaultState: UserState = {};
+export const defaultState: UserState = null;
 
 export const reducer: Reducer<UserState> = (
-    state: UserState | undefined = defaultState,
+    state: UserState = defaultState,
     incomingAction: Action,
 ): UserState => {
-    if (state === undefined) {
-        return defaultState;
-    }
-
     const action = incomingAction as SetUserAction | UnsetUserAction;
     switch (action.type) {
         case "SET_USER":
-            return { ...action.user };
+            return action.user && { ...action.user };
         case "UNSET_USER":
             return defaultState;
         default:

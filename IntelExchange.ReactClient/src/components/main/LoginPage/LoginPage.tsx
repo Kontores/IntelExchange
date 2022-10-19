@@ -26,7 +26,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
     const handleLogin = () => {
         userService.login({ login, password })
             .then(() => userService.getUserLogin()
-            .then(result => { setUser({ id: "", login: result }) })
+            .then(result => { setUser({ id: "", login: result, roles: [] }) })
             .then(() => navigate(RoutesEnum.dashboard)));
     };
 

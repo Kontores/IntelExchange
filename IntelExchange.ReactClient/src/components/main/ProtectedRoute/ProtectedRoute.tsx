@@ -20,10 +20,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ path, roles, user, elem
     const isUserAuthorized = (userRoles: UserRole[], requiredRoles: UserRole[]) => (
         requiredRoles.reduce((res: boolean, role: UserRole) => userRoles.includes(role), false));
 
-    if (!user.login) {
+    if (!user) {
         return (<Navigate to={RoutesEnum.login} />)
     } else {
-        return (user.roles && isUserAuthorized(user.roles, roles))
+        return (isUserAuthorized(user.roles, roles))
             ? (<Route path={path} element={element} />) : (<Navigate to={RoutesEnum.home} />);
     }
     
