@@ -1,10 +1,12 @@
 import { Action, Reducer } from 'redux';
+import { UserRole } from '../data/enums/user-role';
 
 // state
 
 export type UserState = {
-    id: string | undefined;
-    login: string | undefined;
+    id?: string,
+    login?: string,
+    roles?: UserRole[],
 };
 
 // actions
@@ -32,10 +34,7 @@ export const actionCreators = {
 
 // reducer
 
-export const defaultState: UserState = {
-    id: undefined,
-    login: undefined
-};
+export const defaultState: UserState = {};
 
 export const reducer: Reducer<UserState> = (
     state: UserState | undefined = defaultState,
