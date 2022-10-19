@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ user, showSidebar }) => {
         <div className="header-component">
             <h2>{t("main.header.title")}</h2>
             {user.login ?
-                (<div className="username-placeholder">{user?.login}</div>)
+                (<div className="username-placeholder">{user.login}</div>)
                 : (<>
                     <div className="header-item"><Link to="/account/login">{t("main.header.log_in")}</Link></div>
                     <div className="header-item"><Link to="/account/signup">{t("main.header.sign_up")}</Link></div>
