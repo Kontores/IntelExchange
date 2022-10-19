@@ -19,4 +19,11 @@
         font-size: 14px;
         padding-left: 8px;
     }
+
+    .validation-message {
+        color: $red;
+        margin-top: -6px;
+        font-size: 12px;
+        height: 8px;
+    }
 }
