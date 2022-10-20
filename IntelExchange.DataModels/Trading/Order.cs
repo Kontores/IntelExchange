@@ -15,6 +15,6 @@ namespace IntelExchange.DataModels
         decimal FilledVolume
     )
     {
-        public List<Deal> Deals { get; init; } = new List<Deal>();
+        public IEnumerable<Deal> Deals { get; init; }
     }
 }

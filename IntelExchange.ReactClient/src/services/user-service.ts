@@ -13,7 +13,7 @@ export default class UserService {
         });
     }
 
-    getUserLogin(): Promise<string> {
-        return apiService.get("account/getuserlogin", { withCredentials: true }).then(result => { return result.data as string });
+    getLoggedUser(): Promise<User> {
+        return apiService.get("account/getloggeduser", { withCredentials: true }).then(result => { return result.data as User });
     }
 }

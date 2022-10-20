@@ -11,6 +11,7 @@ namespace IntelExchange.DataModels
         )
     {
         public UserProfile Profile { get; init; }
+        public IEnumerable<UserRole> Roles { get; init; }
         public Trader? TradingProfile { get; init; }
     }
 }

@@ -18,5 +18,7 @@ namespace IntelExchange.DataAccess.Services
         }
 
         public IEnumerable<User> GetAllUsers() => _userRepository.GetAll();
+
+        public Task<User> GetUserByNameAsync(string userName) => _userRepository.GetUserByNameAsync(userName);
     }
 }

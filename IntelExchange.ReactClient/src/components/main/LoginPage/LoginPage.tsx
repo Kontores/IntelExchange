@@ -9,6 +9,7 @@ import Input from '../../shared/Input/Input';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../data/enums/routes';
 import './LoginPage.scss';
+import { UserRole } from '../../../data/enums/user-role';
 
 type DispatchProps = {
     setUser: typeof UserStore.actionCreators.setUser;
@@ -25,8 +26,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
 
     const handleLogin = () => {
         userService.login({ login, password })
-            .then(() => userService.getUserLogin()
-            .then(result => { setUser({ id: "", login: result, roles: [] }) })
+            .then(() => userService.getLoggedUser()
+            .then(result => { setUser(result); console.log(result.roles.includes(UserRole.admin)); })
             .then(() => navigate(RoutesEnum.dashboard)));
     };
 

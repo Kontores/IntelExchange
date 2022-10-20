@@ -1,6 +1,7 @@
 ﻿using IntelExchange.DataAccess.Interfaces;
 using IntelExchange.DataModels;
 using IntelExchange.Database.Mocks;
+
 namespace IntelExchange.Database.Repositories
 {
     public class UserMockRepository : IUserRepository
@@ -10,7 +11,6 @@ namespace IntelExchange.Database.Repositories
         {
             UserDataMock.Users.Add(user);
             UserDataMock.UserProfiles.Add(user.Profile);
-            UserDataMock.UserAccounts.Add(user.Account);
         }
 
         public void Delete(Guid id)
@@ -20,7 +20,6 @@ namespace IntelExchange.Database.Repositories
             {
                 UserDataMock.Users.Remove(user);
                 UserDataMock.UserProfiles.Remove(user.Profile);
-                UserDataMock.UserAccounts.Remove(user.Account);
             }
         }
 
@@ -36,6 +35,13 @@ namespace IntelExchange.Database.Repositories
                 Delete(entity.Id);
                 Create(entity);
             }
+        }
+
+        public async Task<User> GetUserByNameAsync(string userName)
+        {
+            var userTask = new Task<User>(() => UserDataMock.Users.FirstOrDefault(u => u.Login == userName));
+            userTask.Start();
+            return await userTask;
         }
 
         public UserMockRepository()

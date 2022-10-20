@@ -49,6 +49,15 @@ namespace IntelExchange.WebApi.Controllers
             return Content(User.Identity.Name);
         }
 
+        [Route("getloggeduser")]
+        [Authorize]
+        public async Task<User> GetLoggedUser()
+        {
+            var userTask = _userService.GetUserByNameAsync(User.Identity.Name);
+            var user = await userTask;
+            return user;
+        }
+
         private async Task AuthenticateAsync(string userName)
         {
             var claims = new List<Claim>
