@@ -5,7 +5,7 @@ namespace IntelExchange.DataModels
     public record Order
     (
         Guid Id,
-        Guid InitiatorId,
+        Guid TraderId,
         Guid InstrumentId,
         OrderType Type,
         OrderStatus Status,
