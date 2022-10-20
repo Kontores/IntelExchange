@@ -7,7 +7,6 @@ namespace IntelExchange.Database.Mocks
     {
         public List<User> Users {get; set;}
         public List<UserProfile> UserProfiles {get; set;}
-        public List <Account> UserAccounts { get; set; }
 
         public UserDataMock()
         {
@@ -21,23 +20,18 @@ namespace IntelExchange.Database.Mocks
             {
                 new User(userIds.First(), "Kirill", "passOne", UserType.Individual)
                 {
-                    Profile = new IndividualProfile(userIds.First(), "kirill@somemail.com", "Kirill", "Kontorez"),
-                    Account = new Account(userIds.First(), 0)
+                    Profile = new IndividualProfile(userIds.First(), "kirill@somemail.com", "Kirill", "Kontorez")
                 },
                 new User(userIds.Skip(1).First(), "John", "passTwo", UserType.Individual)
                 {
                     Profile = new IndividualProfile(userIds.Skip(1).First(), "john@dow.com", "John", "Dow"),
-                    Account = new Account(userIds.Last(), 0)
                 },
                 new User(userIds.Last(), "CapitalFund", "passThree", UserType.Company)
                 {
-                    Profile = new CompanyProfile(userIds.Last(), "capital.fund@mail.com", "Capital Fund", "Ltd", "Main street 25", "10320201"),
-                    Account = new Account(userIds.Last(), 10000)
-                }
+                    Profile = new CompanyProfile(userIds.Last(), "capital.fund@mail.com", "Capital Fund", "Ltd", "Main street 25", "10320201"),                }
             };
 
             UserProfiles = Users.Select(u => u.Profile).ToList();
-            UserAccounts = Users.Select(u => u.Account).ToList();
         }
     }
 }

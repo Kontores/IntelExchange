@@ -11,6 +11,6 @@ namespace IntelExchange.DataModels
         )
     {
         public UserProfile Profile { get; init; }
-        public Account Account { get; init; }
+        public Trader? TradingProfile { get; init; }
     }
 }
