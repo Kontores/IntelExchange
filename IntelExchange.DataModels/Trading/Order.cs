@@ -15,7 +15,6 @@ namespace IntelExchange.DataModels
         decimal FilledVolume
     )
     {
-        public Instrument? Instrument { get; init; }
-        public List<Guid> CounterPartyOrderIds { get; init; } = new List<Guid>();
+        public List<Deal> Deals { get; init; } = new List<Deal>();
     }
 }
