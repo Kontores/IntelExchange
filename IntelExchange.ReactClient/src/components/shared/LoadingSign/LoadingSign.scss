@@ -1,0 +1,51 @@
+@import '../../../Adaptive.scss';
+@import '../../../Global.scss';
+
+.loading-sign-component {
+    width: 100%;
+    height: 256px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        width: 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .square {
+        width: 12px;
+        height: 12px;
+        background-color: $blue-gray;
+
+        @keyframes change-size {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.5);
+            }
+        }
+
+        animation-duration: 600ms;
+        animation-name: change-size;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+
+        &:first-child {
+            animation-delay: 0ms;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 300ms;
+        }
+
+        &:last-child {
+            animation-delay: 450ms;
+        }
+    }
+}
