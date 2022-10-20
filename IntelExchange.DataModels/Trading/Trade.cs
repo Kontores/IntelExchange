@@ -17,7 +17,5 @@ namespace IntelExchange.DataModels
         public decimal Result() => Direction == TradeDirection.Long 
             ? Volume * (ExitPrice - EntryPrice) 
             : Volume * (EntryPrice - ExitPrice);
-
-        public Instrument Instrument { get; init; }
     }
 }
