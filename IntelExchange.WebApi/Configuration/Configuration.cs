@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace IntelExchange.WebApi.Configuration
 {
-    public class Configuration
+    internal class Configuration
     {
-        public static Action<AuthorizationOptions> ConfigureAuthorization = (options) =>
+        internal static Action<AuthorizationOptions> ConfigureAuthorization = (options) =>
         {
             options.AddPolicy("AdminPermission", policy =>
             {
@@ -23,7 +23,7 @@ namespace IntelExchange.WebApi.Configuration
             });
         };
 
-        public static Action<CookieAuthenticationOptions> ConfigureCookies = (options) =>
+        internal static Action<CookieAuthenticationOptions> ConfigureCookies = (options) =>
         {
             options.LoginPath = new PathString("/account/login");
             options.LogoutPath = new PathString("/account/logout");
@@ -31,7 +31,7 @@ namespace IntelExchange.WebApi.Configuration
             options.Cookie.SameSite = SameSiteMode.None;
         };
 
-        public static Action<CorsOptions> ConfigureCors = (options) =>
+        internal static Action<CorsOptions> ConfigureCors = (options) =>
         {
             options.AddPolicy(name: "defaultPolicy",
                      policy =>
