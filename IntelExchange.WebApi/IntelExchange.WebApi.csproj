@@ -17,4 +17,8 @@
     <ProjectReference Include="..\IntelExchange.DataModels\IntelExchange.DataModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authorization\" />
+  </ItemGroup>
+
 </Project>

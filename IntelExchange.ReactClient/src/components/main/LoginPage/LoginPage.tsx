@@ -8,8 +8,8 @@ import Button from '../../shared/Button/Button';
 import Input from '../../shared/Input/Input';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../data/enums/routes';
+import { loginValidation, passwordValidation } from './validation';
 import './LoginPage.scss';
-import { UserRole } from '../../../data/enums/user-role';
 
 type DispatchProps = {
     setUser: typeof UserStore.actionCreators.setUser;
@@ -21,14 +21,23 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
     const { t } = useTranslation();
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
+    const [loginValidationMessage, setLoginValidationMessage] = useState("");
+    const [passwordValidationMessage, setPasswordValidationMessage] = useState("");
     const userService = new UserService();
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        userService.login({ login, password })
-            .then(() => userService.getLoggedUser()
-            .then(result => { setUser(result); console.log(result.roles.includes(UserRole.admin)); })
-            .then(() => navigate(RoutesEnum.dashboard)));
+        const isLoginValid = loginValidation(login, setLoginValidationMessage);
+        const isPasswordValid = passwordValidation(password, setPasswordValidationMessage);
+        if (isLoginValid && isPasswordValid) {
+            userService.login({ login, password })
+                .then(() => userService.getLoggedUser())
+                .then(result => setUser(result))
+                .then(() => userService.checkAdminPermission())
+                .then(result => console.log(result));
+                //.then(() => navigate(RoutesEnum.dashboard));
+        }
+        
     };
 
     return (
@@ -36,8 +45,20 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
             <div className="login-form">
                 <h2>{t("main.login_page.title")}</h2>
                 <div>
-                    <Input type="text" value={login} onChange={(e) => setLogin(e.target.value)} label={t("main.login_page.username")} /> 
-                    <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} label={t("main.login_page.password")} />                     
+                    <Input
+                        type="text"
+                        value={login}
+                        onChange={(e) => setLogin(e.target.value)}
+                        label={t("main.login_page.username")}
+                        validationMessage={loginValidationMessage}
+                    /> 
+                    <Input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        label={t("main.login_page.password")}
+                        validationMessage={passwordValidationMessage}
+                    />                     
                     <div className="button-container">
                         <Button onClick={handleLogin} title={t("main.login_page.log_in")} type="normal" />       
                     </div>                            

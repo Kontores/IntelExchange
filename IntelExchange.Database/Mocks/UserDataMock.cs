@@ -18,7 +18,7 @@ namespace IntelExchange.Database.Mocks
 
             Users = new List<User>()
             {
-                new User(userIds.First(), "Kirill", "passOne", UserType.Individual)
+                new User(userIds.First(), "Kirill", "passOne1", UserType.Individual)
                 {
                     Profile = new IndividualProfile(userIds.First(), "kirill@somemail.com", "Kirill", "Kontorez"),
                     Roles = new List<UserRole>() { UserRole.Admin, UserRole.TraderCreator, UserRole.Observer}

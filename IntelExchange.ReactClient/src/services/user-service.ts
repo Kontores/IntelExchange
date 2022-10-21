@@ -16,4 +16,8 @@ export default class UserService {
     getLoggedUser(): Promise<User> {
         return apiService.get("account/getloggeduser", { withCredentials: true }).then(result => { return result.data as User });
     }
+
+    checkAdminPermission(): Promise<string> {
+        return apiService.get("account/checkadminpermission", { withCredentials: true }).then(result => { return result.data as string });
+    }
 }

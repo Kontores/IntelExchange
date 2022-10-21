@@ -27,7 +27,7 @@ namespace IntelExchange.WebApi.Controllers
             var user = users.FirstOrDefault(user => user.Login == userLoginData.Login && user.Password == userLoginData.Password);
             if (user != null)
             {
-                await AuthenticateAsync(userLoginData.Login);
+                await AuthenticateAsync(user);
                 Log("User " + userLoginData.Login + " logged into the system");
                 return Ok();
 
@@ -42,11 +42,11 @@ namespace IntelExchange.WebApi.Controllers
             await HttpContext.SignOutAsync();
         }
 
-        [Route("getuserlogin")]
-        [Authorize]
-        public IActionResult GetUserLogin()
+        [Route("checkadminpermission")]
+        [Authorize("AdminPermission")]
+        public IActionResult CheckAdminPermission()
         {
-            return Content(User.Identity.Name);
+            return Content("User has admin permission");
         }
 
         [Route("getloggeduser")]
@@ -58,12 +58,13 @@ namespace IntelExchange.WebApi.Controllers
             return user;
         }
 
-        private async Task AuthenticateAsync(string userName)
+        private async Task AuthenticateAsync(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
             };
+            claims.AddRange(user.Roles.Select(role => new Claim("Permission", role.ToString())));
 
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
