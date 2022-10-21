@@ -4,38 +4,16 @@ using IntelExchange.DataAccess.Services;
 using IntelExchange.DataModels;
 using IntelExchange.DataModels.Enums;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using IntelExchange.WebApi.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "defaultPolicy",
-                      policy =>
-                      {
-                          policy
-                          .WithOrigins("http://localhost:3000", "https://localhost:3000")
-                          .AllowCredentials()
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                      });
-});
+builder.Services.AddCors(Configuration.ConfigureCors);
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-{
-    options.LoginPath = new PathString("/account/login");
-    options.LogoutPath = new PathString("/account/logout");
-    options.Cookie.HttpOnly = false;
-    options.Cookie.SameSite = SameSiteMode.None;
-});
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminPermission", policy =>
-    {
-        policy.RequireClaim("Permission", UserRole.Admin.ToString());
-    });
-});
+    .AddCookie(Configuration.ConfigureCookies);
+builder.Services.AddAuthorization(Configuration.ConfigureAuthorization);
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
