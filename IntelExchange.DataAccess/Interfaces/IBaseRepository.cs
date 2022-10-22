@@ -2,10 +2,10 @@
 {
     public interface IBaseRepository<T>
     {
-        T GetById(Guid id);
-        IEnumerable<T> GetAll();
-        void Create(T entity);
-        void Update(T entity);
-        void Delete(Guid id);
+        Task<T> GetByIdAsync(Guid id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task CreateAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(Guid id);
     }
 }

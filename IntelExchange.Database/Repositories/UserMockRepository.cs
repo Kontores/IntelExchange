@@ -6,34 +6,44 @@ namespace IntelExchange.Database.Repositories
 {
     public class UserMockRepository : IUserRepository
     {
-        public UserDataMock UserDataMock {get; init;}
-        public void Create(User user)
+        public UserDataMock UserDataMock { get; init; }
+        public async Task CreateAsync(User user)
         {
             UserDataMock.Users.Add(user);
             UserDataMock.UserProfiles.Add(user.Profile);
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var user = UserDataMock.Users.Find(u => u.Id == id);
-            if(user != null)
+            if (user != null)
             {
                 UserDataMock.Users.Remove(user);
                 UserDataMock.UserProfiles.Remove(user.Profile);
             }
         }
 
-        public IEnumerable<User> GetAll() => UserDataMock.Users;
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            var allUsersTask = new Task<IEnumerable<User>>(() => UserDataMock.Users);
+            allUsersTask.Start();
+            return await allUsersTask;
+        }
 
-        public User GetById(Guid id) => UserDataMock.Users.FirstOrDefault(u => u.Id == id);
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+            var userTask = new Task<User>(() => UserDataMock.Users.FirstOrDefault(u => u.Id == id));
+            userTask.Start();
+            return await userTask;
+        }
 
-        public void Update(User entity)
+        public async Task UpdateAsync(User entity)
         {
             var user = UserDataMock.Users.Find(u => u.Id == entity.Id);
             if (user != null)
             {
-                Delete(entity.Id);
-                Create(entity);
+                DeleteAsync(entity.Id);
+                CreateAsync(entity);
             }
         }
 
