@@ -23,17 +23,17 @@ namespace IntelExchange.WebApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(UserLoginData userLoginData)
         {
-            var users = _userService.GetAllUsers();
+            var users = await _userService.GetAllUsersAsync();
             var user = users.FirstOrDefault(user => user.Login == userLoginData.Login && user.Password == userLoginData.Password);
             if (user != null)
             {
-                await AuthenticateAsync(user);
+                await Authenticate(user);
                 Log("User " + userLoginData.Login + " logged into the system");
                 return Ok();
 
             }
 
-            return new BadRequestResult();
+            return BadRequest();
         }
 
         [Route("logout")]
@@ -58,7 +58,14 @@ namespace IntelExchange.WebApi.Controllers
             return user;
         }
 
-        private async Task AuthenticateAsync(User user)
+        [Route("checkisusernamefree")]
+        private async Task<bool> CheckIsUserNameFree(string userName)
+        {
+            var user = (await _userService.GetAllUsersAsync()).FirstOrDefault(u => u.Login == userName);
+            return user == null;
+        }
+
+        private async Task Authenticate(User user)
         {
             var claims = new List<Claim>
             {
