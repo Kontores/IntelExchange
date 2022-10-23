@@ -23,6 +23,7 @@ namespace IntelExchange.WebApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(UserLoginData userLoginData)
         {
+            if(models)
             var users = await _userService.GetAllUsersAsync();
             var user = users.FirstOrDefault(user => user.Login == userLoginData.Login && user.Password == userLoginData.Password);
             if (user != null)
