@@ -1,6 +1,4 @@
-﻿using IntelExchange.DataModels.Enums;
-
-namespace IntelExchange.DataModels
+﻿namespace IntelExchange.DataModels
 {
     public record UserLoginData(string Login, string Password); 
 }
