@@ -33,8 +33,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
             userService.login({ login, password })
                 .then(() => userService.getLoggedUser())
                 .then(result => setUser(result))
-                .then(() => userService.checkAdminPermission())
-                .then(result => console.log(result));
+               // .then(() => userService.checkAdminPermission())
+              //  .then(result => console.log(result))
+                .catch(err => console.log(err));
+                
                 //.then(() => navigate(RoutesEnum.dashboard));
         }
         

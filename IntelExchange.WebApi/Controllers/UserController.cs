@@ -16,9 +16,9 @@ namespace IntelExchange.WebApi.Controllers
 
         [HttpGet]
         [Route("getallusers")]
-        public IEnumerable<User> GetAllUsers()
+        public async Task <IEnumerable<User>> GetAllUsers()
         {
-           return _userService.GetAllUsers();
+           return await _userService.GetAllUsersAsync();
         }
     }
 }

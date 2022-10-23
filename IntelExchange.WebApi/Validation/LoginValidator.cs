@@ -1,23 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
-using IntelExchange.DataModels;
+﻿using IntelExchange.DataModels;
 using IntelExchange.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IntelExchange.WebApi.Validation
 {
-    public class LoginValidator : BasicValidator<UserLoginData>
+    public class LoginValidator : IValidator<UserLoginData>
     {
         private readonly IUserService _userService;
         private User? user;
-        public LoginValidator(ModelStateDictionary modelState, IUserService userService): base(modelState)
+        public LoginValidator(IUserService userService)
         {
             _userService = userService;
         }
-        public override async Task ValidateAsync(UserLoginData model)
+        public async Task ValidateAsync(UserLoginData model, ModelStateDictionary modelState)
         {
             if(string.IsNullOrWhiteSpace(model.Login))
             {
-                _modelState.AddModelError("Login", "login_cannot_be_empty");
+                modelState.AddModelError("Login", "login_cannot_be_empty");
             }
             else
             {
@@ -25,13 +24,13 @@ namespace IntelExchange.WebApi.Validation
                 
                 if(user == null)
                 {
-                    _modelState.AddModelError("Login", "no_such_user");
+                    modelState.AddModelError("Login", "no_such_user");
                 }
             }
 
             if(string.IsNullOrWhiteSpace(model.Password))
             {
-                _modelState.AddModelError("Password", "password_cannot_be_empty");
+                modelState.AddModelError("Password", "password_cannot_be_empty");
             }
             else
             {
@@ -40,7 +39,7 @@ namespace IntelExchange.WebApi.Validation
                     //todo: add password encryption/check service
                     if (model.Password != user.Password)
                     {
-                        _modelState.AddModelError("Password", "password_incorrect");
+                        modelState.AddModelError("Password", "password_incorrect");
                     }
                 }
             }
