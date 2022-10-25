@@ -26,7 +26,7 @@ namespace IntelExchange.WebApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(UserLoginData userLoginData)
         {
-            await _userValidator.ValidateAsync(userLoginData, ModelState);
+            await _userValidator.ValidateAsync(userLoginData);
 
             if(ModelState.IsValid)
             {
@@ -34,8 +34,9 @@ namespace IntelExchange.WebApi.Controllers
                 await Authenticate(user);
                 Log("User " + userLoginData.Login + " logged into the system");
                 return Ok();
-            }                     
-            return BadRequest(ModelState);
+            }
+
+            return BadRequest(new ValidationErrorResult(ModelState));
         }
 
         [Route("logout")]

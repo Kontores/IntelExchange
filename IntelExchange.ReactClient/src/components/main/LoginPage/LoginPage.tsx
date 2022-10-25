@@ -8,7 +8,8 @@ import Button from '../../shared/Button/Button';
 import Input from '../../shared/Input/Input';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../data/enums/routes';
-import { loginValidation, passwordValidation } from './validation';
+import UserLoginDataValidator from '../../../data/validation/user-login-data-validator';
+import { isServerSideValidationError, getServerSideValidationErrors } from '../../../data/validation/validation';
 import './LoginPage.scss';
 
 type DispatchProps = {
@@ -21,21 +22,32 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
     const { t } = useTranslation();
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [loginValidationMessage, setLoginValidationMessage] = useState("");
-    const [passwordValidationMessage, setPasswordValidationMessage] = useState("");
+    const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
     const userService = new UserService();
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        const isLoginValid = loginValidation(login, setLoginValidationMessage);
-        const isPasswordValid = passwordValidation(password, setPasswordValidationMessage);
-        if (isLoginValid && isPasswordValid) {
+        const validator = new UserLoginDataValidator();
+        const validationResult = validator.validate({ login, password });
+        setValidationErrors(validationResult);
+        if (validator.isModelValid) {
             userService.login({ login, password })
                 .then(() => userService.getLoggedUser())
                 .then(result => setUser(result))
                // .then(() => userService.checkAdminPermission())
               //  .then(result => console.log(result))
-                .catch(err => console.log(err));
+                .catch(err => {
+                    if (isServerSideValidationError(err)) {
+                        const serverValidationErrors = getServerSideValidationErrors(err);
+                        setValidationErrors(serverValidationErrors);
+                        console.log(serverValidationErrors);
+                    } else console.log(err);
+
+                    //const data = err.response.data as ValidationErrorResponse;
+                    //const keys = Object.keys(data.errors);
+                    //keys.forEach(key => console.log(`key: ${key}, value:${data.errors[key]}`));
+                    //console.log(Object.keys(data.errors));
+                });
                 
                 //.then(() => navigate(RoutesEnum.dashboard));
         }
@@ -52,14 +64,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
                         label={t("main.login_page.username")}
-                        validationMessage={loginValidationMessage}
+                        validationMessage={validationErrors?.login}
                     /> 
                     <Input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         label={t("main.login_page.password")}
-                        validationMessage={passwordValidationMessage}
+                        validationMessage={validationErrors?.password}
                     />                     
                     <div className="button-container">
                         <Button onClick={handleLogin} title={t("main.login_page.log_in")} type="normal" />       
