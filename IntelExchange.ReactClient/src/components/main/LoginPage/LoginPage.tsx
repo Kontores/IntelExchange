@@ -9,7 +9,7 @@ import Input from '../../shared/Input/Input';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../data/enums/routes';
 import UserLoginDataValidator from '../../../data/validation/user-login-data-validator';
-import { isServerSideValidationError, getServerSideValidationErrors } from '../../../data/validation/validation';
+import { isServerSideValidationError, getServerSideValidationErrors, ValidationState } from '../../../data/validation/validation';
 import './LoginPage.scss';
 
 type DispatchProps = {
@@ -22,15 +22,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
     const { t } = useTranslation();
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+    const [validationState, setValidationState] = useState<ValidationState>({ isValid: false, errors: {} });
     const userService = new UserService();
     const navigate = useNavigate();
 
     const handleLogin = () => {
         const validator = new UserLoginDataValidator();
         const validationResult = validator.validate({ login, password });
-        setValidationErrors(validationResult);
-        if (validator.isModelValid) {
+        setValidationState(validationResult);
+        if (validationResult.isValid) {
             userService.login({ login, password })
                 .then(() => userService.getLoggedUser())
                 .then(result => setUser(result))
@@ -39,7 +39,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
                 .catch(err => {
                     if (isServerSideValidationError(err)) {
                         const serverValidationErrors = getServerSideValidationErrors(err);
-                        setValidationErrors(serverValidationErrors);
+                        setValidationState({ isValid: false, errors: serverValidationErrors });
                         console.log(serverValidationErrors);
                     } else console.log(err);
 
@@ -64,14 +64,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
                         label={t("main.login_page.username")}
-                        validationMessage={validationErrors?.login}
+                        validationMessage={validationState.errors.login}
                     /> 
                     <Input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         label={t("main.login_page.password")}
-                        validationMessage={validationErrors?.password}
+                        validationMessage={validationState.errors.password}
                     />                     
                     <div className="button-container">
                         <Button onClick={handleLogin} title={t("main.login_page.log_in")} type="normal" />       

@@ -2,7 +2,6 @@ import { UserLoginData } from "../user";
 import { IValidator } from "./validation";
 
 export default class UserLoginDataValidator implements IValidator<UserLoginData>  {
-    isModelValid: boolean = false;
     validate(model: UserLoginData) {
         const loginError = this.validateLogin(model.login);
         const passwordError = this.validatePassword(model.password);
@@ -14,10 +13,10 @@ export default class UserLoginDataValidator implements IValidator<UserLoginData>
             errors.password = passwordError;
         }
 
-        this.isModelValid = Object.keys(errors).length === 0;
-
-        return errors;
-
+        return {
+            isValid: Object.keys(errors).length === 0,
+            errors
+        };
     }
 
     private validateLogin(login: string): string | undefined {

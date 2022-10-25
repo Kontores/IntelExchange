@@ -16,7 +16,11 @@ export const getServerSideValidationErrors = (error: AxiosError) => {
     return response.errors;
 }
 
+export type ValidationState = {
+    isValid: boolean;
+    errors: Record<string, string>;
+}
+
 export interface IValidator<T> {
-    validate: (model: T) => Record<string, string> | undefined;
-    isModelValid: boolean;
+    validate: (model: T) => ValidationState;
 };
