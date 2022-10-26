@@ -1,8 +1,6 @@
 using IntelExchange.Database.Repositories;
 using IntelExchange.DataAccess.Interfaces;
 using IntelExchange.DataAccess.Services;
-using IntelExchange.DataModels;
-using IntelExchange.DataModels.Enums;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using IntelExchange.WebApi.Configuration;
 
@@ -20,6 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IUserRepository, UserMockRepository>();
 builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddValidation();
+
 
 var app = builder.Build();
 

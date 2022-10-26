@@ -1,5 +1,6 @@
 import apiService from './api-service';
 import { User, UserLoginData } from '../data/user';
+import { AxiosError } from 'axios';
 
 export default class UserService {
     getAllUsers():Promise<User[]> {

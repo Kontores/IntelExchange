@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using IntelExchange.WebApi.Validation;
 
 namespace IntelExchange.WebApi.Controllers
 {
@@ -13,9 +14,11 @@ namespace IntelExchange.WebApi.Controllers
     public class AccountController : BaseController
     {
         private readonly IUserService _userService;
-        public AccountController(ILogger<AccountController> logger, IUserService userService) : base(logger)
+        private readonly IValidator<UserLoginData> _userValidator;
+        public AccountController(ILogger<AccountController> logger, IUserService userService, IValidator<UserLoginData> userValidator) : base(logger)
         {
             _userService = userService;
+            _userValidator = userValidator;
         }
 
         [HttpPost]
@@ -23,17 +26,17 @@ namespace IntelExchange.WebApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(UserLoginData userLoginData)
         {
-            var users = await _userService.GetAllUsersAsync();
-            var user = users.FirstOrDefault(user => user.Login == userLoginData.Login && user.Password == userLoginData.Password);
-            if (user != null)
+            await _userValidator.ValidateAsync(userLoginData);
+
+            if(ModelState.IsValid)
             {
+                var user = await _userService.GetUserByNameAsync(userLoginData.Login);
                 await Authenticate(user);
                 Log("User " + userLoginData.Login + " logged into the system");
                 return Ok();
-
             }
 
-            return BadRequest();
+            return BadRequest(new ValidationErrorResult(ModelState));
         }
 
         [Route("logout")]
