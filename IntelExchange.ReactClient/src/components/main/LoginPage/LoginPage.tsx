@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import UserService from '../../../services/user-service';
 import * as UserStore from '../../../store/UserState';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Button from '../../shared/Button/Button';
 import Input from '../../shared/Input/Input';
-import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../data/enums/routes';
-import UserLoginDataValidator from '../../../data/validation/user-login-data-validator';
-import { isServerSideValidationError, getServerSideValidationErrors, ValidationState } from '../../../data/validation/validation';
 import './LoginPage.scss';
+import { useLoginPage } from './useLoginPage';
 
 type DispatchProps = {
     setUser: typeof UserStore.actionCreators.setUser;
@@ -20,39 +17,7 @@ type LoginPageProps = DispatchProps & {};
 
 const LoginPage: React.FC<LoginPageProps> = ({ setUser }) => {
     const { t } = useTranslation();
-    const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
-    const [validationState, setValidationState] = useState<ValidationState>({ isValid: false, errors: {} });
-    const userService = new UserService();
-    const navigate = useNavigate();
-
-    const handleLogin = () => {
-        const validator = new UserLoginDataValidator();
-        const validationResult = validator.validate({ login, password });
-        setValidationState(validationResult);
-        if (validationResult.isValid) {
-            userService.login({ login, password })
-                .then(() => userService.getLoggedUser())
-                .then(result => setUser(result))
-               // .then(() => userService.checkAdminPermission())
-              //  .then(result => console.log(result))
-                .catch(err => {
-                    if (isServerSideValidationError(err)) {
-                        const serverValidationErrors = getServerSideValidationErrors(err);
-                        setValidationState({ isValid: false, errors: serverValidationErrors });
-                        console.log(serverValidationErrors);
-                    } else console.log(err);
-
-                    //const data = err.response.data as ValidationErrorResponse;
-                    //const keys = Object.keys(data.errors);
-                    //keys.forEach(key => console.log(`key: ${key}, value:${data.errors[key]}`));
-                    //console.log(Object.keys(data.errors));
-                });
-                
-                //.then(() => navigate(RoutesEnum.dashboard));
-        }
-        
-    };
+    const { login, setLogin, password, setPassword, handleLogin, validationState } = useLoginPage(setUser);
 
     return (
         <div className="loginpage-component">
