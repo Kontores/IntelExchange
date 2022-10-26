@@ -1,5 +1,5 @@
 import apiService from './api-service';
-import { User, UserLoginData } from '../data/user';
+import { User, UserLoginModel } from '../data/user';
 import { AxiosError } from 'axios';
 
 export default class UserService {
@@ -8,7 +8,7 @@ export default class UserService {
             .then(result => { return result.data })
     }
 
-    login(userLoginData: UserLoginData) {
+    login(userLoginData: UserLoginModel) {
         return apiService.post("account/login", userLoginData, {
             withCredentials: true
         });

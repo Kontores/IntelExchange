@@ -1,8 +1,8 @@
-import { UserLoginData } from "../user";
+import { UserLoginModel } from "../user";
 import { IValidator } from "./validation";
 
-export default class UserLoginDataValidator implements IValidator<UserLoginData>  {
-    validate(model: UserLoginData) {
+export default class UserLoginDataValidator implements IValidator<UserLoginModel>  {
+    validate(model: UserLoginModel) {
         const loginError = this.validateLogin(model.login);
         const passwordError = this.validatePassword(model.password);
         const errors: Record<string, string> = {};

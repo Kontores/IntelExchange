@@ -1,13 +1,14 @@
 import { UserRole } from './enums/user-role';
+import { UserType } from './enums/user-type';
 
-export type UserLoginData = {
+export type UserLoginModel = {
     login: string;
     password: string;
-}
+};
 
-export type User = UserLoginData & {
+export type User = UserLoginModel & {
     id: string;
-    type: string;
+    type: UserType;
     profile: IndividualProfile | CompanyProfile;
     roles: UserRole[];
 };
@@ -15,6 +16,7 @@ export type User = UserLoginData & {
 export type UserProfile = {
     userId: string;
     email: string;
+    phoneNumber: string;
 };
 
 export type IndividualProfile = UserProfile & {

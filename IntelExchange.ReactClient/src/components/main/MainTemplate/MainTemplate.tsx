@@ -11,12 +11,13 @@ import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import Dashboard from '../Dashboard/Dashboard';
 import './MainTemplate.scss';
+import Signup from '../Signup/Signup';
 
 type MainTemplateProps = {};
 
 const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
     const { t } = useTranslation();
-    // todo: define items in separate helper.ts class based on user permissions; create protected route component 
+    // todo: define items in separate helper.ts class based on user permissions; 
     const sidebarItems = [
         { title: t("shared.pages.home"), navigateTo: RoutesEnum.home },
         { title: t("shared.pages.dashboard"), navigateTo: RoutesEnum.dashboard },
@@ -35,6 +36,7 @@ const MainTemplate: React.FC<MainTemplateProps> = ({ }) => {
                         <Route path={RoutesEnum.home}  element={<HomePage />} />
                         <Route path={RoutesEnum.dashboard} element={<Dashboard />} />
                         <Route path={RoutesEnum.login} element={<LoginPage />} />
+                        <Route path={RoutesEnum.signup} element={<Signup />} />
                     </Routes>
                 </Router>
             </div>
