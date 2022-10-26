@@ -20,16 +20,16 @@ namespace IntelExchange.Database.Mocks
             {
                 new User(userIds.First(), "Kirill", "passOne1", UserType.Individual)
                 {
-                    Profile = new IndividualProfile(userIds.First(), "kirill@somemail.com", "Kirill", "Kontorez"),
+                    Profile = new IndividualProfile(userIds.First(), "kirill@somemail.com", "79012324556", "Kirill", "Kontorez", "no address"),
                     Roles = new List<UserRole>() { UserRole.Admin, UserRole.TraderCreator, UserRole.Observer}
                 },
                 new User(userIds.Skip(1).First(), "John", "passTwo", UserType.Individual)
                 {
-                    Profile = new IndividualProfile(userIds.Skip(1).First(), "john@dow.com", "John", "Dow"),
+                    Profile = new IndividualProfile(userIds.Skip(1).First(), "john@dow.com", "21343224",  "John", "Dow", "some street"),
                 },
                 new User(userIds.Last(), "CapitalFund", "passThree", UserType.Company)
                 {
-                    Profile = new CompanyProfile(userIds.Last(), "capital.fund@mail.com", "Capital Fund", "Ltd", "Main street 25", "10320201"),                }
+                    Profile = new CompanyProfile(userIds.Last(), "capital.fund@mail.com", "+12321", "Capital Fund", "Ltd", "Main street 25", "10320201"),                }
             };
 
             UserProfiles = Users.Select(u => u.Profile).ToList();

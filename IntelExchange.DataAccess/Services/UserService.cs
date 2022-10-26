@@ -10,11 +10,9 @@ namespace IntelExchange.DataAccess.Services
         {
             _userRepository = userRepository;
         }
-
-        public Task<User> GetUserByIdAsync(Guid id) => _userRepository.GetByIdAsync(id);
-
-        public Task<IEnumerable<User>> GetAllUsersAsync() => _userRepository.GetAllAsync();
-
-        public Task<User> GetUserByNameAsync(string userName) => _userRepository.GetUserByNameAsync(userName);
+        public async Task<User> GetUserByIdAsync(Guid id) => await _userRepository.GetByIdAsync(id);
+        public async Task<IEnumerable<User>> GetAllUsersAsync() => await _userRepository.GetAllAsync();
+        public async Task<User> GetUserByNameAsync(string userName) => await _userRepository.GetUserByNameAsync(userName);
+        public async Task CreateUserAsync(User user) => await _userRepository.CreateAsync(user);
     }
 }
