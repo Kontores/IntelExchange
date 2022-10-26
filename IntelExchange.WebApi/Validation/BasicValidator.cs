@@ -13,7 +13,6 @@ namespace IntelExchange.WebApi.Validation
             _modelState = actionContextAccessor.ActionContext.ModelState;
         }
         public abstract Task ValidateAsync(T model);
-           
-        
+        public abstract void Validate(T model);
     }
 }

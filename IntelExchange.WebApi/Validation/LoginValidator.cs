@@ -46,5 +46,10 @@ namespace IntelExchange.WebApi.Validation
             }
             
         }
+
+        public override void Validate(UserLoginData model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
