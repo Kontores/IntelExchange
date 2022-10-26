@@ -9,7 +9,7 @@ namespace IntelExchange.WebApi.Configuration
         public static IServiceCollection AddValidation(this IServiceCollection services)
         {
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddScoped<IValidator<UserLoginData>, LoginValidator>();
+            services.AddScoped<IValidator<UserLoginModel>, LoginValidator>();
             return services;
         }
     }

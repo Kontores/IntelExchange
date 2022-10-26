@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IntelExchange.WebApi.Validation
 {
-    public class LoginValidator : BasicValidator<UserLoginData>
+    public class LoginValidator : BasicValidator<UserLoginModel>
     {
         private readonly IUserService _userService;
         private User? user;
@@ -13,7 +13,7 @@ namespace IntelExchange.WebApi.Validation
         {
             _userService = userService;
         }
-        public override async Task ValidateAsync(UserLoginData model)
+        public override async Task ValidateAsync(UserLoginModel model)
         {
             if(string.IsNullOrWhiteSpace(model.Login))
             {
@@ -47,7 +47,7 @@ namespace IntelExchange.WebApi.Validation
             
         }
 
-        public override void Validate(UserLoginData model)
+        public override void Validate(UserLoginModel model)
         {
             throw new NotImplementedException();
         }

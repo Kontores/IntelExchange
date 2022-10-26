@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using IntelExchange.WebApi.Validation;
 
 namespace IntelExchange.WebApi.Controllers
 {
@@ -14,29 +13,27 @@ namespace IntelExchange.WebApi.Controllers
     public class AccountController : BaseController
     {
         private readonly IUserService _userService;
-        private readonly IValidator<UserLoginData> _userValidator;
-        public AccountController(ILogger<AccountController> logger, IUserService userService, IValidator<UserLoginData> userValidator) : base(logger)
+        public AccountController(ILogger<AccountController> logger, IUserService userService) : base(logger)
         {
             _userService = userService;
-            _userValidator = userValidator;
         }
 
         [HttpPost]
        // [ValidateAntiForgeryToken]
         [Route("login")]
-        public async Task<IActionResult> Login(UserLoginData userLoginData)
+        public async Task<IActionResult> Login(UserLoginModel userLoginData)
         {
-            await _userValidator.ValidateAsync(userLoginData);
-
-            if(ModelState.IsValid)
+            var users = await _userService.GetAllUsersAsync();
+            var user = users.FirstOrDefault(user => user.Login == userLoginData.Login && user.Password == userLoginData.Password);
+            if (user != null)
             {
-                var user = await _userService.GetUserByNameAsync(userLoginData.Login);
                 await Authenticate(user);
                 Log("User " + userLoginData.Login + " logged into the system");
                 return Ok();
+
             }
 
-            return BadRequest(new ValidationErrorResult(ModelState));
+            return BadRequest();
         }
 
         [Route("logout")]

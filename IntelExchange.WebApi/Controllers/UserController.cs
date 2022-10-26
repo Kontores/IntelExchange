@@ -20,5 +20,17 @@ namespace IntelExchange.WebApi.Controllers
         {
            return await _userService.GetAllUsersAsync();
         }
+
+        [HttpPost]
+        [Route("create")]
+        public async Task<IActionResult> Create(User user)
+        {
+            if(ModelState.IsValid)
+            {
+                await _userService.CreateUserAsync(user);
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }
