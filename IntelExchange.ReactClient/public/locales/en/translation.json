@@ -10,6 +10,26 @@
       "username": "Username",
       "password": "Password",
       "log_in": "Log in"
+    },
+    "signup": {
+      "title": "Please sign up using the form below",
+      "choose_username": "Choose your username",
+      "choose_password": "Choose password",
+      "repeat_password": "Repeat password",
+      "select_user_type": "Select your user type",
+      "individual": "Individual",
+      "company": "Company",
+      "please_fill_details": "Please fill the following details:",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company_name": "Company name",
+      "company_form": "Company form",
+      "phone_number": "Phone number",
+      "email": "Email",
+      "itin": "ITIN",
+      "address": "Address",
+      "post_address": "Post address",
+      "sign_up": "Sign up"
     }
   },
   "shared": {
