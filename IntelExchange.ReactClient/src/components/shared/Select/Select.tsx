@@ -6,7 +6,7 @@ type SelectProps = {
     onChange: (value: any) => void;
     placeholder?: string;
     items: SelectItem[];
-    multiselect: boolean
+    multiselect?: boolean;
 };
 
 export type SelectItem = {
@@ -14,7 +14,7 @@ export type SelectItem = {
     value: any;
 };
 
-const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, items, multiselect  }) => {
+const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, items, multiselect = false  }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValues, setSelectedValues] = useState<any[]>([]);
@@ -43,7 +43,7 @@ const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, it
     return (
         <div className="select-component">
             <div className="selector" onClick={() => setIsOpen(!isOpen)}>{title}</div>
-            <div className="dropdown">
+            <div className={`dropdown ${isOpen ? "open" : "closed"}`}>
                 {
                     items.map((item, i) => (
                         <div
