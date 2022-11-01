@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="public\locales\en\" />
+    <Folder Include="src\helpers\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptConfiguration Include=".env.development" />

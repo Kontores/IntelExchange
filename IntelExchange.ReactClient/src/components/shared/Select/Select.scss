@@ -1,0 +1,70 @@
+@import '../../../Adaptive.scss';
+@import '../../../Global.scss';
+
+.select-component {
+    width: 160px;
+    height: 32px;
+    position: relative;
+    overflow-y: visible;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .selector {
+        width: 100%;
+        height: 100%;
+        background-color: $white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        svg {
+            color: $black;
+        }
+    }
+
+    .placeholder {
+        color: $text-light;
+        margin-left: 4px;
+    }
+
+    .title {
+        color: $black;
+        margin-left: 4px;
+    }
+
+    .select-items {
+        width: 100%;
+        height: auto;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .select-item {
+        width: 100%;
+        height: 32px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: $white;
+        border-top: 1px solid $border;
+        color: $black;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $blue-gray;
+            color: $text-light;
+        }
+
+        &:last-of-type {
+            border-bottom: 1px solid $border;
+        }
+    }
+
+    .item-label {
+        margin-left: 4px;
+    }
+}
