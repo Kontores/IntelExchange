@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useOnClickOutside } from '../../../helpers/outside-click-helper';
 import './Select.scss';
+import { ReactComponent as CaretDownIcon } from '../../../assets/icons/caret-down-icon.svg';
+import { ReactComponent as CaretUpIcon } from '../../../assets/icons/caret-up-icon.svg';
 
 type SelectProps = {
     defaultValue?: any;
@@ -49,6 +51,7 @@ const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, it
         <div className="select-component" ref={ref}>
             <div className="selector" onClick={() => setIsOpen(!isOpen)}>
                 <span className={titleClassName}>{title}</span>
+                {isOpen ? <CaretUpIcon /> : <CaretDownIcon />}
             </div>
             <div className={isOpen ? "select-items" : "select-items hidden"}>
                 {
