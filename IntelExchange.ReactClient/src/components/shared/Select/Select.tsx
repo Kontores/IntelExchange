@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useOnClickOutside } from '../../../helpers/outside-click-helper';
 import './Select.scss';
 
 type SelectProps = {
@@ -18,6 +19,7 @@ const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, it
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValues, setSelectedValues] = useState<any[]>([]);
+    const ref = useRef(null);
 
     useEffect(() => {
         const selectedItem = defaultValue ? items.find(item => item.value === defaultValue) : undefined;
@@ -26,9 +28,9 @@ const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, it
         }
     }, []);
 
-    const title = useMemo(() => {
-        return selectedValues.length > 0 ? items.find(item => item.value === selectedValues[0])?.label : placeholder ? placeholder : "";
-    }, [selectedValues, placeholder]);
+    const title = selectedValues.length > 0 ? items.find(item => item.value === selectedValues[0])?.label : placeholder ? placeholder : "";
+
+    const titleClassName = selectedValues.length > 0 ? "title" : "placeholder";
 
     const handleSelect = (value: any) => {
         onChange(value);
@@ -38,23 +40,24 @@ const Select: React.FC<SelectProps> = ({ defaultValue, onChange, placeholder, it
         } else {
             setSelectedValues([value]);
         }
+        setIsOpen(false);
     };
 
+    useOnClickOutside(ref, () => setIsOpen(false));
+
     return (
-        <div className="select-component">
-            <div className="selector" onClick={() => setIsOpen(!isOpen)}>{title}</div>
-            <div className={`dropdown ${isOpen ? "open" : "closed"}`}>
+        <div className="select-component" ref={ref}>
+            <div className="selector" onClick={() => setIsOpen(!isOpen)}>
+                <span className={titleClassName}>{title}</span>
+            </div>
+            <div className={isOpen ? "select-items" : "select-items hidden"}>
                 {
                     items.map((item, i) => (
-                        <div
-                            key={i}
-                            className="select-item"
-                            onClick={(e) => handleSelect(item.value)}
-                        >
-                            {items[i].label}
+                        <div key={i} className="select-item" onClick={() => handleSelect(item.value)}>
+                            <span className="item-label">{item.label}</span>
                         </div>
                     ))}
-            </div>
+            </div>        
         </div>
     );
 }
