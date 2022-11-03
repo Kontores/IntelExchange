@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using IntelExchange.DataAccess.Interfaces;
 using IntelExchange.DataModels;
+using IntelExchange.WebApi.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
